@@ -8,7 +8,7 @@
 import "lib/github.com/HnimNart/deeplearning/deep_learning"
 module dl = deep_learning f32
 
-let seed = 1
+let seed : i32 = 1
 
 let conv1     = dl.layers.conv2d (32, 5, 1, 1) dl.nn.relu seed
 let max_pool1 = dl.layers.max_pooling2d (2,2)
@@ -27,7 +27,7 @@ let nn    = dl.nn.connect_layers nn4 output
 
 let main [m] (batch_size: i32) (input: [m][]dl.t) (labels: [m][]dl.t) =
   let input' = map (\img -> [unflatten 28 28 img]) input
-  let train = 55000
+  let train = 55040 -- Rounded up to largest batch size.
   let validation = 10000
   let alpha = 0.1
   let nn' = dl.train.gradient_descent nn alpha
